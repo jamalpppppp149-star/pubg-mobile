@@ -4,275 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PUBG Mobile Hub | شحن وحساسية</title>
-    <style>
-        /* التنسيقات العامة والأساسية */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            background-color: #0d0d0d;
-            color: #ffffff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            padding-bottom: 70px; /* مساحة لشريط التنقل السفلي */
-        }
-
-        /* ترويسة الموقع الثابتة */
-        header {
-            background-color: #111111;
-            padding: 15px;
-            text-align: center;
-            border-bottom: 2px solid #ffb300;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .logo {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #ffb300;
-            letter-spacing: 1px;
-            text-shadow: 0 0 8px rgba(255, 179, 0, 0.4);
-        }
-
-        /* حاوية الصفحات */
-        .page {
-            display: none; /* إخفاء الصفحات افتراضياً */
-            padding: 30px 20px;
-            animation: slideUp 0.4s ease forwards;
-            max-width: 600px;
-            margin: 0 auto;
-            width: 100%;
-        }
-
-        .page.active {
-            display: block; /* إظهار الصفحة النشطة فقط */
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* العناوين الموحدة للصفحات */
-        .page-title {
-            font-size: 1.8rem;
-            color: #ffb300;
-            text-align: center;
-            margin-bottom: 25px;
-            font-weight: bold;
-        }
-
-        /* الأزرار العامة */
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            text-align: center;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .btn-primary {
-            background-color: #ffb300;
-            color: #0d0d0d;
-            box-shadow: 0 4px 12px rgba(255, 179, 0, 0.3);
-        }
-
-        .btn-primary:hover {
-            background-color: #ffc43d;
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background-color: transparent;
-            color: #ffffff;
-            border: 2px solid #333;
-            margin-top: 15px;
-        }
-
-        /* --- 1. تصميم صفحة الحساسية التفاعلية --- */
-        .quiz-card {
-            background-color: #161616;
-            border: 1px solid #222;
-            border-radius: 15px;
-            padding: 25px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .quiz-step {
-            display: none;
-        }
-
-        .quiz-step.active {
-            display: block;
-        }
-
-        .step-title {
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            color: #ffffff;
-        }
-
-        .options-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .option-btn {
-            background-color: #222;
-            border: 1px solid #333;
-            color: #fff;
-            padding: 15px;
-            font-size: 1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .option-btn:hover {
-            border-color: #ffb300;
-            background-color: #2a2a2a;
-        }
-
-        .code-box {
-            background-color: #0d0d0d;
-            border: 2px dashed #ffb300;
-            color: #ffb300;
-            font-size: 1.5rem;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-            font-weight: bold;
-            cursor: pointer;
-            letter-spacing: 1px;
-        }
-
-        /* --- 2. تصميم صفحة الشحن والعروض --- */
-        .offer-card {
-            background-color: #161616;
-            border: 1px solid #ff5722;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 15px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(255, 87, 34, 0.1);
-        }
-
-        .offer-title {
-            font-size: 1.4rem;
-            color: #ffffff;
-            font-weight: bold;
-        }
-
-        .offer-desc {
-            color: #aaa;
-            font-size: 0.9rem;
-            margin: 8px 0;
-        }
-
-        .offer-price {
-            font-size: 1.8rem;
-            color: #ff5722;
-            font-weight: 900;
-            margin: 10px 0;
-        }
-
-        /* --- 3. تصميم صفحة النصائح --- */
-        .tip-card {
-            background-color: #161616;
-            border-right: 4px solid #ffb300;
-            border-radius: 0 8px 8px 0;
-            padding: 15px;
-            margin-bottom: 15px;
-        }
-
-        .tip-header {
-            font-weight: bold;
-            font-size: 1.1rem;
-            color: #ffb300;
-            margin-bottom: 8px;
-        }
-
-        .tip-body {
-            color: #ccc;
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-
-        /* --- 4. تصميم صفحة الدعم والتعريف --- */
-        .support-info {
-            background-color: #161616;
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            line-height: 1.6;
-            color: #ccc;
-            margin-bottom: 20px;
-        }
-
-        .social-links {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        /* شريط التنقل السفلي الثابت (Bottom Nav) */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: #111111;
-            height: 65px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            border-top: 1px solid #222;
-            z-index: 1000;
-        }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: #888888;
-            text-decoration: none;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: 0.2s;
-            background: none;
-            border: none;
-            width: 25%;
-        }
-
-        .nav-item.active {
-            color: #ffb300;
-        }
-
-        .nav-icon {
-            font-size: 1.4rem;
-            margin-bottom: 4px;
-        }
-    </style>
+    <!-- استدعاء ملف التصميم الخارجي -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- الهيدر العلوي للموقع -->
     <header>
         <div class="logo">PUBG MOBILE HUB</div>
     </header>
@@ -281,14 +17,11 @@
     <main id="sensitivity-page" class="page active">
         <h2 class="page-title">مستشار الحساسية الذكي</h2>
         <div class="quiz-card">
-            
-            <!-- خطوة البداية -->
             <div id="step-intro" class="quiz-step active">
-                <h3 class="step-title">احصل على كود حساسية مخصص لأسلوب لعبك في ثوانٍ معدودة!</h3>
+                <h3 class="step-title">احصل على الأرقام والنسب المئوية المثالية لثبات الأيم حسب جهازك!</h3>
                 <button onclick="startQuiz()" class="btn btn-primary">ابدأ فحص جهازك</button>
             </div>
 
-            <!-- خطوة 1: نوع الجهاز -->
             <div id="step-device" class="quiz-step">
                 <h3 class="step-title">1. ما هو نوع هاتفك؟</h3>
                 <div class="options-list">
@@ -298,7 +31,6 @@
                 </div>
             </div>
 
-            <!-- خطوة 2: عدد الأصابع -->
             <div id="step-fingers" class="quiz-step">
                 <h3 class="step-title">2. كم عدد الأصابع التي تلعب بها؟</h3>
                 <div class="options-list">
@@ -308,24 +40,28 @@
                 </div>
             </div>
 
-            <!-- خطوة 3: الجيروسكوب -->
             <div id="step-gyro" class="quiz-step">
                 <h3 class="step-title">3. هل تفضل استخدام الجيروسكوب؟</h3>
                 <div class="options-list">
-                    <button class="option-btn" onclick="nextStep('gyro', 'yes')">🔄 نعم (أعتمد عليه للتوجيه)</button>
+                    <button class="option-btn" onclick="nextStep('gyro', 'yes')">🔄 نعم (أعتمد عليه)</button>
                     <button class="option-btn" onclick="nextStep('gyro', 'no')">❌ لا (أتحكم بأصابعي فقط)</button>
                 </div>
             </div>
 
-            <!-- خطوة النتيجة النهائية -->
             <div id="step-result" class="quiz-step">
-                <h3 class="step-title" style="color: #ffb300;">🎯 تم توليد كودك الأنسب!</h3>
-                <p style="font-size: 0.9rem; color: #ccc;">إليك أفضل كود حساسية تمت مطابقته لإعدادات جهازك وقبضتك:</p>
-                <div id="final-code" class="code-box" onclick="copyCode()">جاري التوليد...</div>
-                <p style="color: #666; font-size: 0.8rem;">اضغط على الكود بالأعلى لنسخه فوراً</p>
-                <button onclick="resetQuiz()" class="btn btn-secondary">إعادة الاختبار 🔄</button>
+                <h3 class="step-title" style="color: #ffb300;">🎯 الأرقام والنسب المخصصة لك</h3>
+                <p style="font-size: 0.9rem; color: #ccc;">انقل هذه الأرقام والنسب بدقة داخل إعدادات اللعبة:</p>
+                <table class="settings-table">
+                    <thead>
+                        <tr>
+                            <th>الإعداد</th>
+                            <th>النسبة المقترحة</th>
+                        </tr>
+                    </thead>
+                    <tbody id="settings-values-body"></tbody>
+                </table>
+                <button onclick="resetQuiz()" class="btn btn-secondary">إعادة الاختيار 🔄</button>
             </div>
-
         </div>
     </main>
 
@@ -333,7 +69,6 @@
     <main id="recharge-page" class="page">
         <h2 class="page-title">عروض شحن الشدات الفورية</h2>
         
-        <!-- العرض الأول -->
         <div class="offer-card">
             <div class="offer-title">⚡ 325 شدة (UC)</div>
             <div class="offer-desc">شحن آمن ومباشر عبر الأيدي ID الخاص بك</div>
@@ -341,7 +76,6 @@
             <a href="https://your-arpay-link.com" target="_blank" class="btn btn-primary" style="background-color: #ff5722; color: #fff;">💳 اشحن عبر ARPay</a>
         </div>
 
-        <!-- العرض الثاني -->
         <div class="offer-card">
             <div class="offer-title">🔥 660 شدة (UC)</div>
             <div class="offer-desc">العرض الأكثر شعبية للاعبين مع بونص مجاني</div>
@@ -349,7 +83,6 @@
             <a href="https://your-arpay-link.com" target="_blank" class="btn btn-primary" style="background-color: #ff5722; color: #fff;">💳 اشحن عبر ARPay</a>
         </div>
 
-        <!-- العرض الثالث -->
         <div class="offer-card">
             <div class="offer-title">👑 1800 شدة (UC)</div>
             <div class="offer-desc">شحن حزمة رويال باس والبدلات الفخمة</div>
@@ -364,17 +97,12 @@
         
         <div class="tip-card">
             <div class="tip-header">💡 ثبات السلاح عند الإطلاق</div>
-            <div class="tip-body">احرص دائماً على تفعيل وضع "الانحناء" أو "الانبطاح" عند إطلاق النار على الأهداف البعيدة بسكوبات كبيرة، فهذا يقلل من اهتزاز السلاح بنسبة تصل إلى 50%.</div>
+            <div class="tip-body">احرص دائماً على تفعيل وضع "الانحناء" عند إطلاق النار لتقليل الاهتزاز.</div>
         </div>
 
         <div class="tip-card">
             <div class="tip-header">⚙️ معدل الإطارات (FPS) هو الأهم</div>
-            <div class="tip-body">اضبط إعدادات الجرافيكس في اللعبة دائماً على (سلسة / Smooth) واجعل معدل الإطارات على أعلى خيار متاح بجهازك (قوية / فائقة / 90 إطاراً). الأداء السلس أفضل من الصور الجميلة.</div>
-        </div>
-
-        <div class="tip-card">
-            <div class="tip-header">🎯 التدريب اليومي</div>
-            <div class="tip-body">اقضِ 10 دقائق على الأقل يومياً في ساحة التدريب لتجربة كود الحساسية الجديد والاعتياد على مسافات الرش بالسكوبات المختلفة لتقوية الذاكرة العضلية ليدك.</div>
+            <div class="tip-body">اضبط إعدادات الجرافيكس في اللعبة دائماً على (سلسة / Smooth).</div>
         </div>
     </main>
 
@@ -384,21 +112,19 @@
         
         <div class="support-info">
             <h3 style="color: #ffb300; margin-bottom: 10px;">حول موقع PUBG HUB</h3>
-            <p>نحن نوفر للاعبين العرب أقوى إعدادات الحساسية المخصصة مجاناً لتطوير مستواهم، إلى جانب خدمات شحن الشدات الموثوقة والسريعة والآمنة بالتعاون مع بوابة الدفع الشهيرة ARPay.</p>
+            <p>نحن نوفر للاعبين العرب أقوى إعدادات الحساسية المخصصة مجاناً لتطوير مستواهم.</p>
         </div>
 
         <div class="support-info">
             <h3 style="color: #ffb300; margin-bottom: 15px;">💬 تواصل معنا للدعم</h3>
-            <p style="margin-bottom: 20px; font-size: 0.95rem;">هل واجهت مشكلة في الشحن أو الحساسية؟ نحن متواجدون لمساعدتك على مدار الساعة:</p>
             <div class="social-links">
-                <!-- يمكنك استبدال الروابط بالواتساب والتيليجرام الخاص بك -->
-                <a href="https://wa.me/yournumber" target="_blank" class="btn btn-primary" style="background-color: #25d366; color: #fff; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);">🟢 تواصل عبر واتساب</a>
-                <a href="https://t.me/username" target="_blank" class="btn btn-primary" style="background-color: #0088cc; color: #fff; box-shadow: 0 4px 12px rgba(0, 136, 204, 0.3);">🔵 تواصل عبر تيليجرام</a>
+                <a href="https://wa.me/yournumber" target="_blank" class="btn btn-primary" style="background-color: #25d366; color: #fff;">🟢 تواصل عبر واتساب</a>
+                <a href="https://t.me/username" target="_blank" class="btn btn-primary" style="background-color: #0088cc; color: #fff;">🔵 تواصل عبر تيليجرام</a>
             </div>
         </div>
     </main>
 
-    <!-- شريط التنقل السفلي الثابت (مظهر التطبيقات الاحترافي) -->
+    <!-- شريط التنقل السفلي -->
     <nav class="bottom-nav">
         <button class="nav-item active" onclick="switchPage('sensitivity-page', this)">
             <span class="nav-icon">🔭</span>
@@ -418,93 +144,7 @@
         </button>
     </nav>
 
-    <script>
-        // نظام التنقل بين الصفحات الـ 4
-        function switchPage(pageId, btnElement) {
-            // إخفاء جميع الصفحات
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => page.classList.remove('active'));
-
-            // إظهار الصفحة المطلوبة
-            document.getElementById(pageId).classList.add('active');
-
-            // إزالة الحالة النشطة من جميع أزرار شريط التنقل السفلي
-            const navItems = document.querySelectorAll('.nav-item');
-            navItems.forEach(item => item.classList.remove('active'));
-
-            // إضافة الحالة النشطة للزر الذي تم النقر عليه
-            btnElement.classList.add('active');
-
-            // الصعود لأعلى الصفحة تلقائياً عند تغيير الصفحة
-            window.scrollTo(0, 0);
-        }
-
-        // متغيرات فحص الحساسية التفاعلي
-        let quizAnswers = {
-            device: '',
-            fingers: '',
-            gyro: ''
-        };
-
-        function startQuiz() {
-            document.getElementById('step-intro').classList.remove('active');
-            document.getElementById('step-device').classList.add('active');
-        }
-
-        function nextStep(stepName, answerValue) {
-            quizAnswers[stepName] = answerValue;
-
-            if (stepName === 'device') {
-                document.getElementById('step-device').classList.remove('active');
-                document.getElementById('step-fingers').classList.add('active');
-            } else if (stepName === 'fingers') {
-                document.getElementById('step-fingers').classList.remove('active');
-                document.getElementById('step-gyro').classList.add('active');
-            } else if (stepName === 'gyro') {
-                document.getElementById('step-gyro').classList.remove('active');
-                showQuizResult();
-            }
-        }
-
-        function showQuizResult() {
-            document.getElementById('step-result').classList.add('active');
-            let generatedCode = "7124-9081-3254-6610"; // افتراضي
-
-            // شجرة توليد الكود الذكي بناء على الاختيارات
-            if (quizAnswers.device === 'iphone') {
-                if (quizAnswers.gyro === 'yes') {
-                    generatedCode = "1562-4890-2213-9081";
-                } else {
-                    generatedCode = "1562-4890-2213-4420";
-                }
-            } else if (quizAnswers.device === 'android-high') {
-                if (quizAnswers.fingers === '4-fingers') {
-                    generatedCode = "3099-2810-7761-0098";
-                } else {
-                    generatedCode = "3099-2810-7761-1122";
-                }
-            } else { // أندرويد ضعيف/متوسط
-                if (quizAnswers.gyro === 'yes') {
-                    generatedCode = "8891-6620-3114-5541";
-                } else {
-                    generatedCode = "8891-6620-3114-1029";
-                }
-            }
-
-            document.getElementById('final-code').innerText = generatedCode;
-        }
-
-        function copyCode() {
-            const codeText = document.getElementById('final-code').innerText;
-            navigator.clipboard.writeText(codeText);
-            alert('تم نسخ كود الحساسية بنجاح! اذهب للعبة والصقه في الإعدادات.');
-        }
-
-        function resetQuiz() {
-            quizAnswers = { device: '', fingers: '', gyro: '' };
-            document.getElementById('step-result').classList.remove('active');
-            document.getElementById('step-intro').classList.add('active');
-        }
-    </script>
+    <!-- استدعاء ملف البرمجة الخارجي -->
+    <script src="script.js"></script>
 </body>
 </html>
