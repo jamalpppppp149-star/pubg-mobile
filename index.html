@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PUBG Mobile Hub | شحن شدات وحساسية</title>
+    <style>
+        /* إعادة تعيين التنسيقات الأساسية */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0d0d0d;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* حاوية الواجهة الرئيسية */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            background: radial-gradient(circle, rgba(29,29,29,1) 0%, rgba(13,13,13,1) 100%);
+            border-bottom: 2px solid #ffb300;
+        }
+
+        /* الشعار أو اسم الموقع */
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ffb300;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(255, 179, 0, 0.5);
+        }
+
+        /* العنوان الرئيسي المثيرة لللاعبين */
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .hero-title span {
+            color: #ffb300;
+            display: block;
+            font-size: 3rem;
+            margin-top: 5px;
+        }
+
+        /* الوصف الفرعي للخدمات */
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: #cccccc;
+            max-width: 500px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        /* الأزرار التفاعلية */
+        .cta-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: #ffb300;
+            color: #0d0d0d;
+            box-shadow: 0 4px 15px rgba(255, 179, 0, 0.4);
+        }
+
+        .btn-primary:hover {
+            background-color: #ffc43d;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 179, 0, 0.6);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* تحسينات الشاشات المتوسطة والكبيرة (التابلت والكمبيوتر) */
+        @media (min-width: 768px) {
+            .hero-title {
+                font-size: 3.5rem;
+            }
+            .hero-title span {
+                font-size: 4rem;
+                display: inline;
+                margin-top: 0;
+            }
+            .hero-subtitle {
+                font-size: 1.3rem;
+            }
+            .cta-container {
+                flex-direction: row;
+                max-width: 500px;
+                justify-content: center;
+            }
+            .btn {
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الواجهة الرئيسية للموقع -->
+    <section class="hero-section">
+        <div class="logo">PUBG MOBILE HUB</div>
+        
+        <h1 class="hero-title">
+            احترف اللعبة الآن مع 
+            <span>أقوى الحساسيات</span>
+        </h1>
+        
+        <p class="hero-subtitle">
+            احصل على أكواد ثبات الأيم الأسطورية فوراً، واشحن شدات ببجي بأمان وسرعة فائقة من خلال ARPay لتكون المصنف الأول!
+        </p>
+        
+        <div class="cta-container">
+            <a href="#sensitivity" class="btn btn-primary">أكواد الحساسية</a>
+            <a href="#recharge" class="btn btn-secondary">شحن شدات ببجي</a>
+        </div>
+    </section>
+
+</body>
+</html>
